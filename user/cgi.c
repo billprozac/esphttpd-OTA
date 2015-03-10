@@ -112,8 +112,8 @@ int ICACHE_FLASH_ATTR cgiUploadEspfs(HttpdConnData *connData) {
 	}
 	SpiFlashOpResult ret;
 	int x;
-	uint32_t flashOff = ESPFS_POS;
-	uint32_t flashSize = ESPFS_SIZE;
+	int flashOff = ESPFS_POS;
+	int flashSize = ESPFS_SIZE;
 	
 	//If this is the first time, erase the flash sector
 	if (connData->post->received == 0){
