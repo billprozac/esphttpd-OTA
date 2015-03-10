@@ -373,7 +373,7 @@ static void ICACHE_FLASH_ATTR httpdParseHeader(char *h, HttpdConnData *conn) {
 			conn->post->buffSize = conn->post->len;
 		}
 		os_printf("Mallocced buffer for %d + 1 bytes of post data.\n", conn->post->buffSize);
-		conn->post->buff=(char*)os_malloc(conn->postBuffSize + 1);
+		conn->post->buff=(char*)os_malloc(conn->post->buffSize + 1);
 		conn->post->buffLen=0;
 	} else if (os_strncmp(h, "Content-Type: ", 14)==0) {
 		if(os_strstr(h, "multipart/form-data")){
@@ -432,7 +432,6 @@ static void ICACHE_FLASH_ATTR httpdRecvCb(void *arg, char *data, unsigned short 
 			if (conn->post->buffLen >= conn->post->buffSize || conn->post->received == conn->post->len) {
 				//Received a chunk of post data
 				conn->post->buff[conn->post->buffLen]=0; //zero-terminate, in case the cgi handler knows it can use strings
-				//os_printf("Post data: %s\n", conn->postBuff);
 				//Send the response.
 				httpdProcessRequest(conn);
 				conn->post->buffLen = 0;
